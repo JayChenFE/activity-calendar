@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>活动日历</title>
+</head>
+
+<body>
+    <div class="alert"><strong>注意：</strong>目前仅支持以下类型通知</div>
+    <div id="supportedTypes"></div>
+    <hr />
+    <h2>当天的活动</h2>
+    <div id="todayActivities"></div>
+    <h2>计算指定日期的活动</h2>
+    <input type="text" id="datepicker" placeholder="选择日期">
+    <div id="selectedActivities"></div>
+    <div id="mask"></div>
+
+    <script type="module" src="/main.js"></script>
+
+    <!-- 支持的类型模板 -->
+    <script id="supportedTypesTemplate" type="text/html">
+      <p>{{#supportedTypes}}{{.}}, {{/supportedTypes}}</p>
+    </script>
+
+    <!-- 当天活动模板 -->
+    <script id="dailyActivitiesTemplate" type="text/html">
+      <p>{{date}} 星期{{day}} 活动如下:</p>
+      <table>
+        <tr><th>时间</th><th>内容</th></tr>
+        {{#activities}}
+          <tr><td>{{time}}</td><td>{{content}}</td></tr>
+        {{/activities}}
+      </table>
+    </script>
+
+    <!-- 选定日期的活动模板 -->
+    <script id="selectedActivitiesTemplate" type="text/html">
+      <p>{{date}} {{day}} 活动如下:</p>
+      <table>
+        <tr><th>时间</th><th>内容</th></tr>
+        {{#activities}}
+          <tr><td>{{time}}</td><td>{{content}}</td></tr>
+        {{/activities}}
+      </table>
+    </script>
+</body>
+
+</html>
