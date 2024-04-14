@@ -1,14 +1,11 @@
 import rules from './rules.js'
+// 获取支持的活动类型
 function getSupportedTypes() {
-  const supportedTypes = new Set()
-  for (const rule of rules) {
-    supportedTypes.add(rule.name)
-  }
-  return Array.from(supportedTypes)
+  const supportedTypes = [...new Set(rules.map((rule) => rule.name))]
+  return supportedTypes
 }
 // 获取日期对应活动的函数
-function getActivities(date) {
-  const activities = []
+function getTargetDayOfWeek(date) {
   const dayOfWeek = [
     'Sunday',
     'Monday',
@@ -21,6 +18,13 @@ function getActivities(date) {
 
   const targetDate = new Date(date)
   const targetDayOfWeek = dayOfWeek[targetDate.getDay()]
+
+  return targetDayOfWeek
+}
+
+function getActivities(date) {
+  const activities = []
+  const targetDayOfWeek = getTargetDayOfWeek(date)
 
   for (const rule of rules) {
     if (rule.type === 'daily' || rule.day_of_week === targetDayOfWeek) {

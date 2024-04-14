@@ -1,18 +1,18 @@
-import './style.css'
-import { $ } from 'jquery'
-import 'jquery-ui/ui/core'
-import 'jquery-ui/ui/widgets/datepicker'
-import Mustache from 'mustache'
 import { initializeDatepicker } from './datepicker.js'
 import { getInitData, getActivities } from './fetchData.js'
 
 $(document).ready(init)
+
 function init() {
-  initializePage(new Date())
+  const currentDate = new Date()
+
+  // 初始化页面
+  initializePage(currentDate)
 
   // 初始化日期选择器并绑定事件
   initializeDatepicker((selectedDate) => updateSelectedActivities(selectedDate))
 }
+
 // 更新支持的类型列表
 function updateSupportedTypes(supportedTypes) {
   const template = $('#supportedTypesTemplate').html()
@@ -21,8 +21,8 @@ function updateSupportedTypes(supportedTypes) {
 }
 
 // 更新活动列表
-function updateActivities(activities, containerId, templateId, date, day) {
-  const template = $(templateId).html()
+function updateActivities(activities, containerId, date, day) {
+  const template = $('#activitiesTemplate').html()
   const html = Mustache.render(template, { date, day, activities })
   $(containerId).html(html)
 }
@@ -30,25 +30,27 @@ function updateActivities(activities, containerId, templateId, date, day) {
 // 获取页面初始化数据并更新页面
 function initializePage(date) {
   const { supportedTypes, dailyActivities } = getInitData(date)
+  const day = getDayByDate(date)
   updateSupportedTypes(supportedTypes)
-  updateActivities(
-    dailyActivities,
-    '#todayActivities',
-    '#dailyActivitiesTemplate'
-  )
+  updateActivities(dailyActivities, '#todayActivities', formatDate(date), day)
 }
 
 // 选择日期后更新活动列表
 function updateSelectedActivities(selectedDate) {
   const activities = getActivities(selectedDate)
-  const selectedDay = new Date(selectedDate).toLocaleDateString('zh-CN', {
-    weekday: 'long',
-  })
-  updateActivities(
-    activities,
-    '#selectedActivities',
-    '#selectedActivitiesTemplate',
-    selectedDate,
-    selectedDay
-  )
+  const selectedDay = getDayByDate(selectedDate)
+  updateActivities(activities, '#selectedActivities', selectedDate, selectedDay)
+}
+
+// 将日期格式化为 YYYY-MM-DD 格式
+function formatDate(date) {
+  const year = date.getFullYear()
+  const month = (date.getMonth() + 1).toString().padStart(2, '0')
+  const day = date.getDate().toString().padStart(2, '0')
+  return `${year}-${month}-${day}`
+}
+
+// 获取日期对应的星期几
+function getDayByDate(date) {
+  return new Date(date).toLocaleDateString('zh-CN', { weekday: 'long' })
 }

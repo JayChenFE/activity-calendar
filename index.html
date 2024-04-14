@@ -4,6 +4,11 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="lib/jquery-ui.min.css">
+    <link rel="stylesheet" href="./style.css">
+    <script src="lib/jquery.min.js"></script>
+    <script src="lib/jquery-ui.min.js"></script>
+    <script src="lib/mustache.min.js"></script>
     <title>活动日历</title>
 </head>
 
@@ -22,29 +27,23 @@
 
     <!-- 支持的类型模板 -->
     <script id="supportedTypesTemplate" type="text/html">
-      <p>{{#supportedTypes}}{{.}}, {{/supportedTypes}}</p>
+          <p>{{#supportedTypes}}{{.}}, {{/supportedTypes}}</p>
     </script>
-
-    <!-- 当天活动模板 -->
-    <script id="dailyActivitiesTemplate" type="text/html">
-      <p>{{date}} 星期{{day}} 活动如下:</p>
-      <table>
-        <tr><th>时间</th><th>内容</th></tr>
-        {{#activities}}
-          <tr><td>{{time}}</td><td>{{content}}</td></tr>
-        {{/activities}}
-      </table>
-    </script>
-
-    <!-- 选定日期的活动模板 -->
-    <script id="selectedActivitiesTemplate" type="text/html">
-      <p>{{date}} {{day}} 活动如下:</p>
-      <table>
-        <tr><th>时间</th><th>内容</th></tr>
-        {{#activities}}
-          <tr><td>{{time}}</td><td>{{content}}</td></tr>
-        {{/activities}}
-      </table>
+    <!-- 活动模板 -->
+    <script id="activitiesTemplate" type="text/html">
+        <p>{{date}} {{day}} 活动如下:</p>
+        <table>
+            <tr>
+                <th>时间</th>
+                <th>内容</th>
+            </tr>
+            {{#activities}}
+            <tr>
+                <td>{{time}}</td>
+                <td>{{content}}</td>
+            </tr>
+            {{/activities}}
+        </table>
     </script>
 </body>
 
