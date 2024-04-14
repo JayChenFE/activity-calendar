@@ -16,7 +16,8 @@ function init() {
 // 更新支持的类型列表
 function updateSupportedTypes(supportedTypes) {
   const template = $('#supportedTypesTemplate').html()
-  const html = Mustache.render(template, { supportedTypes })
+  const supportedTypesStr = supportedTypes.join(', ')
+  const html = Mustache.render(template, { supportedTypesStr })
   $('#supportedTypes').html(html)
 }
 
