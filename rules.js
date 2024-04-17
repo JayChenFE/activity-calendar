@@ -79,6 +79,21 @@ const rules = [
     interval_days: 3,
     start_time: '05:00',
   },
+  {
+    id: 10,
+    name: '周末提醒',
+    content: '今天是周日,记得买每周道具英雄等物品',
+    type: 'weekly',
+    day_of_week: 'Sunday',
+    start_time: '22:00',
+  },
+  {
+    id: 11,
+    name: '月末提醒',
+    content: '今天是月末,记得买每月道具英雄等物品',
+    type: 'monthly',
+    start_time: '22:00',
+  },
 ]
 
 export default rules

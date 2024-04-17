@@ -1,18 +1,15 @@
+import {
+  getTargetDayOfWeek,
+  isDateIntervalMatch,
+  isLastDayOfMonth,
+} from './dateUtils.js'
+
 const activityHandlers = {
   daily: getDailyActivity,
   weekly: getWeeklyActivity,
+  monthly: getMonthlyActivity,
   interval: getIntervalActivity,
 }
-
-const dayOfWeek = [
-  'Sunday',
-  'Monday',
-  'Tuesday',
-  'Wednesday',
-  'Thursday',
-  'Friday',
-  'Saturday',
-]
 
 // 根据日期和规则获取活动列表
 function getActivitiesByDate(rules, date) {
@@ -72,19 +69,16 @@ function getIntervalActivity({ rule, date }) {
   return null
 }
 
-// 判断日期是否符合间隔要求
-function isDateIntervalMatch(start_date, date, interval_days) {
-  const startDate = new Date(start_date)
-  const currentDate = new Date(date)
-  const daysDiff = Math.floor((currentDate - startDate) / (1000 * 3600 * 24))
-  return daysDiff >= 0 && daysDiff % interval_days === 0
-}
-
-// 获取目标日期的星期几
-function getTargetDayOfWeek(date) {
-  const targetDate = new Date(date)
-  const targetDayOfWeek = dayOfWeek[targetDate.getDay()]
-  return targetDayOfWeek
+// 获取每月活动
+function getMonthlyActivity({ rule, date }) {
+  const { start_time, content } = rule
+  if (isLastDayOfMonth(date)) {
+    return {
+      time: start_time,
+      content,
+    }
+  }
+  return null
 }
 
 export { getActivitiesByDate }
