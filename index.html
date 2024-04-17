@@ -41,7 +41,11 @@
             {{#activities}}
             <tr>
                 <td>{{time}}</td>
-                <td>{{content}}</td>
+                <td>
+                    {{#contents}}
+                    {{.}}<br>
+                    {{/contents}}
+                </td>
             </tr>
             {{/activities}}
         </table>

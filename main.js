@@ -24,13 +24,18 @@ function updateSupportedTypes(supportedTypes) {
 // 更新活动列表
 function updateActivities(activities, containerId, date, day) {
   const template = $('#activitiesTemplate').html()
-  const html = Mustache.render(template, { date, day, activities })
+  const html = Mustache.render(template, {
+    date,
+    day,
+    activities,
+  })
   $(containerId).html(html)
 }
 
 // 获取页面初始化数据并更新页面
 function initializePage(date) {
   const { supportedTypes, dailyActivities } = getInitData(date)
+  console.log(dailyActivities)
   const day = getDayByDate(date)
   updateSupportedTypes(supportedTypes)
   updateActivities(dailyActivities, '#todayActivities', formatDate(date), day)

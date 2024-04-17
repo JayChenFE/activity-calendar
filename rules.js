@@ -57,13 +57,21 @@ const rules = [
   {
     id: 7,
     name: '圣虚活动',
-    content: '圣虚活动:1.圣虚守护,拿星星奖励 2.圣境之巅',
+    content: '圣虚活动:圣虚守护,拿星星奖励',
     type: 'weekly',
     day_of_week: 'Monday',
     start_time: '05:00',
   },
   {
     id: 8,
+    name: '圣虚活动',
+    content: '圣虚活动:圣境之巅',
+    type: 'weekly',
+    day_of_week: 'Monday',
+    start_time: '05:00',
+  },
+  {
+    id: 9,
     name: '圣境争夺',
     content: '圣境争夺 周五12:00至周日23:00',
     type: 'weekly',
@@ -71,7 +79,7 @@ const rules = [
     start_time: '12:00',
   },
   {
-    id: 9,
+    id: 10,
     name: '封魔圣柱',
     content: '封魔圣柱,三天后更新',
     type: 'interval',
@@ -80,7 +88,7 @@ const rules = [
     start_time: '05:00',
   },
   {
-    id: 10,
+    id: 11,
     name: '周末提醒',
     content: '今天是周日,记得买每周道具英雄等物品',
     type: 'weekly',
@@ -88,7 +96,7 @@ const rules = [
     start_time: '22:00',
   },
   {
-    id: 11,
+    id: 12,
     name: '月末提醒',
     content: '今天是月末,记得买每月道具英雄等物品',
     type: 'monthly',

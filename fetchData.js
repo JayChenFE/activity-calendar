@@ -8,11 +8,24 @@ function getSupportedTypes() {
 
 function getActivities(date) {
   const activities = getActivitiesByDate(rules, date)
-  activities.sort((a, b) => {
-    return a.time.localeCompare(b.time)
-  })
 
-  return activities
+  // 使用 Object.groupBy() 方法按照时间分组
+  const groupedActivities = Object.groupBy(
+    activities,
+    (activity) => activity.time
+  )
+  // 将分组后的结果转换为数组形式
+  const result = Object.entries(groupedActivities).map(
+    ([time, activities]) => ({
+      time,
+      contents: activities.map((activity) => activity.content),
+    })
+  )
+
+  // 对数组按照 time 进行升序排序
+  result.sort((a, b) => a.time.localeCompare(b.time))
+
+  return result
 }
 
 function getInitData(date) {
