@@ -1,7 +1,7 @@
 import {
   getTargetDayOfWeek,
   isDateIntervalMatch,
-  isLastDayOfMonth,
+  isDaysBeforeMonthEnd,
 } from './dateUtils.js'
 
 const activityHandlers = {
@@ -71,8 +71,13 @@ function getIntervalActivity({ rule, date }) {
 
 // 获取每月活动
 function getMonthlyActivity({ rule, date }) {
-  const { start_time, content } = rule
-  if (isLastDayOfMonth(date)) {
+  const { start_time, content, days_before_month_end } = rule
+
+  if (days_before_month_end === null || days_before_month_end === undefined) {
+    return null
+  }
+
+  if (isDaysBeforeMonthEnd(date, days_before_month_end)) {
     return {
       time: start_time,
       content,

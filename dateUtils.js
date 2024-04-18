@@ -23,6 +23,21 @@ function isDateIntervalMatch(start_date, date, interval_days) {
   return daysDiff >= 0 && daysDiff % interval_days === 0
 }
 
+function isDaysBeforeMonthEnd(date, days_before_month_end) {
+  const currentDate = new Date(date)
+  const lastDayOfMonth = new Date(
+    currentDate.getFullYear(),
+    currentDate.getMonth() + 1,
+    0
+  )
+  const targetDate = new Date(date)
+  targetDate.setDate(targetDate.getDate() + days_before_month_end)
+  return (
+    targetDate.getMonth() === lastDayOfMonth.getMonth() &&
+    targetDate.getDate() === lastDayOfMonth.getDate()
+  )
+}
+
 function isLastDayOfMonth(date) {
   const currentDate = new Date(date)
   const nextDay = new Date(date)
@@ -30,4 +45,9 @@ function isLastDayOfMonth(date) {
   return nextDay.getDate() === 1
 }
 
-export { getTargetDayOfWeek, isDateIntervalMatch, isLastDayOfMonth }
+export {
+  getTargetDayOfWeek,
+  isDateIntervalMatch,
+  isLastDayOfMonth,
+  isDaysBeforeMonthEnd,
+}
