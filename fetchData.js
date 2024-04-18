@@ -10,10 +10,7 @@ function getActivities(date) {
   const activities = getActivitiesByDate(rules, date)
 
   // 使用 Object.groupBy() 方法按照时间分组
-  const groupedActivities = Object.groupBy(
-    activities,
-    (activity) => activity.time
-  )
+  const groupedActivities = groupBy(activities, (activity) => activity.time)
   // 将分组后的结果转换为数组形式
   const result = Object.entries(groupedActivities).map(
     ([time, activities]) => ({
@@ -26,6 +23,17 @@ function getActivities(date) {
   result.sort((a, b) => a.time.localeCompare(b.time))
 
   return result
+}
+
+function groupBy(array, keyExtractor) {
+  return array.reduce((result, currentValue) => {
+    const key = keyExtractor(currentValue)
+    if (!result[key]) {
+      result[key] = []
+    }
+    result[key].push(currentValue)
+    return result
+  }, {})
 }
 
 function getInitData(date) {
