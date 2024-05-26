@@ -2,14 +2,15 @@ import rules from './rules.js'
 import { getActivitiesByDate } from './activityUtils.js'
 // 获取支持的活动类型
 function getSupportedTypes() {
-  const supportedTypes = [...new Set(rules.map((rule) => rule.name))]
+    const supportedTypes = [...new Set(rules.map((rule) => rule.name))]
+
   return supportedTypes
 }
 
 function getActivities(date) {
   const activities = getActivitiesByDate(rules, date)
 
-  // 使用 Object.groupBy() 方法按照时间分组
+  // 按照时间分组
   const groupedActivities = groupBy(activities, (activity) => activity.time)
   // 将分组后的结果转换为数组形式
   const result = Object.entries(groupedActivities).map(

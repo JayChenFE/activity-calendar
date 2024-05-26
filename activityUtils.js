@@ -71,13 +71,33 @@ function getIntervalActivity({ rule, date }) {
 
 // 获取每月活动
 function getMonthlyActivity({ rule, date }) {
-  const { start_time, content, days_before_month_end } = rule
+  const { start_time, content, days_before_month_end, start_days } = rule
 
-  if (days_before_month_end === null || days_before_month_end === undefined) {
-    return null
+  if (days_before_month_end) {
+    return handleDaysBeforeMonthEnd({
+      start_time,
+      content,
+      days_before_month_end,
+      date,
+    })
   }
 
+  if (start_days) {
+    return handleStartDays({ start_time, content, start_days, date })
+  }
+
+  return null
+}
+
+function handleDaysBeforeMonthEnd({
+  start_time,
+  content,
+  days_before_month_end,
+  date,
+}) {
   if (isDaysBeforeMonthEnd(date, days_before_month_end)) {
+    const targetDate = new Date(date)
+
     return {
       time: start_time,
       content,
@@ -86,4 +106,19 @@ function getMonthlyActivity({ rule, date }) {
   return null
 }
 
+function handleStartDays({ start_time, content, start_days, date }) {
+  if (isStartDay(date, start_days)) {
+    return {
+      time: start_time,
+      content: content,
+    }
+  }
+  return null
+}
+
+function isStartDay(date, startDays) {
+  const currentDate = new Date(date)
+  const currentDay = currentDate.getDate()
+  return startDays.includes(currentDay)
+}
 export { getActivitiesByDate }

@@ -111,6 +111,13 @@ const rules = [
     start_time: '22:00',
     days_before_month_end: 2,
   },
+  {
+    name: '至尊之战竞猜',
+    content: '至尊之战竞猜',
+    type: 'monthly',
+    start_time: '20:00',
+    start_days: [25, 26],
+  },
 ]
 
 export default rules
